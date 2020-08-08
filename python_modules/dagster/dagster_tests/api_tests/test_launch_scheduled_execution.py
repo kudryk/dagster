@@ -97,9 +97,9 @@ def grpc_schedule_origin(schedule_name):
     loadable_target_origin = LoadableTargetOrigin(
         executable_path=sys.executable, python_file=__file__, attribute='the_repo'
     )
-    with GrpcServerProcess(
-        loadable_target_origin=loadable_target_origin
-    ).create_ephemeral_client() as api_client:
+    with GrpcServerProcess(loadable_target_origin=loadable_target_origin).create_ephemeral_client(
+        wait_for_end=True
+    ) as api_client:
         repo_origin = RepositoryGrpcServerOrigin(
             host=api_client.host,
             port=api_client.port,
